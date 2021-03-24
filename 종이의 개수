@@ -1,0 +1,51 @@
+/******************************************************************************
+
+Welcome to GDB Online.
+GDB online is an online compiler and debugger tool for C, C++, Python, PHP, Ruby, 
+C#, VB, Perl, Swift, Prolog, Javascript, Pascal, HTML, CSS, JS
+Code, Compile, Run and Debug online from anywhere in world.
+
+*******************************************************************************/
+#include <stdio.h>
+#include <stdlib.h>
+
+int arr[2200][2200];
+int cnt[3] = {0,};
+
+
+_Bool isSame(int y, int x, int N){
+    int pivot = arr[y][x];
+    
+    for (int i=0; i<3; i++)
+        for(int j=0; j<3; j++)
+            if(arr[i][j]!=pivot)
+                return 0;
+    return 1;    //false 안걸렸으면 true
+}
+            
+                
+void divide(int y, int x, int N){
+    
+    if(isSame(y,x,N)){
+        cnt[arr[y][x]+1] += 1; //-1은 0번에 0은 1번에 1은 2번 배열칸에 저장
+    }
+    else{         
+        for (int i=0; i<3; i++)
+            for(int j=0; j<3; j++)
+                divide(y+(N/3)*i, x+(N/3)*i, N/3);
+    }
+    
+}
+
+
+int main()
+{  
+    int N;
+    scanf("%d",&N);
+    divide(0,0,N);
+    
+    printf("%d",cnt[0]);
+    printf("%d",cnt[1]);
+    printf("%d",cnt[2]);
+    return 0;
+}
