@@ -1,0 +1,64 @@
+/******************************************************************************
+
+Welcome to GDB Online.
+GDB online is an online compiler and debugger tool for C, C++, Python, Java, PHP, Ruby, Perl,
+C#, VB, Swift, Pascal, Fortran, Haskell, Objective-C, Assembly, HTML, CSS, JS, SQLite, Prolog.
+Code, Compile, Run and Debug online from anywhere in world.
+
+*******************************************************************************/
+#include <stdio.h>
+
+char arr[3100][6200];
+
+void patt(int n, int y, int x){
+    if(n == 3){
+        arr[y][x] = '*';
+        
+        arr[y+1][x-1] = '*';
+        arr[y+1][x+1] = '*';  
+        
+        arr[y+2][x-2] = '*';
+        arr[y+2][x-1] = '*';
+        arr[y+2][x] = '*';
+        arr[y+2][x+1] = '*';
+        arr[y+2][x+2] = '*';
+        return;
+    }
+    
+    patt(n/2, y, x);
+    patt(n/2, y+(n/2), x-(n/2));
+    patt(n/2, y+(n/2), x+(n/2));
+
+}
+
+void printP(int n){
+    for(int i=0; i<n; i++){
+        for(int j=0; j<2*n; j++){
+            printf("%c",arr[i][j]);
+        }
+        printf("\n");
+    }
+}
+//0~n-2(n-1개),n-1(가운데),n~2n-2(n-1개),2n-1은 줄바꿈
+void initArr(int n){
+    for(int i=0; i<n; i++){
+        for(int j=0; j<2*n; j++){
+            if(j== 2*n - 1)
+                arr[i][j] = '\n';   
+            else
+                arr[i][j] = ' ';
+        }
+    }
+}
+
+int main()
+{
+    int n;
+    
+    scanf("%d",&n);
+    initArr(n);
+    patt(n, 0, n-1);
+    printP(n);
+    
+    return 0;
+}
