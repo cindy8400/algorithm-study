@@ -1,0 +1,49 @@
+/******************************************************************************
+
+                            Online C Compiler.
+                Code, Compile, Run and Debug C program online.
+Write your code in this editor and press "Run" button to compile and execute it.
+
+*******************************************************************************/
+
+#include <stdio.h>
+
+char arr[2200][2200] = {' ',} ;
+
+void setP(int y, int x, int n){
+    if(n == 1){
+        arr[y][x] = '*';
+        return;
+    }
+    
+    int div = n/3;
+    for(int i=0; i<3;i++){
+        for(int j=0; j<=3; j++){
+            if(i == 1 && j == 1);   //가운데는 공백으로 놔두고
+            else
+                setP(y+i*div,x+j*div,div);  //
+        }
+    }
+    
+    
+}
+
+void printP(int n){
+    for(int i=0; i<n; i++){
+        for(int j=0; j<n; j++)
+            printf("%c", arr[i][j]);
+        printf("\n");
+    }
+}
+
+
+int main()
+{
+    int n;
+    scanf("%d",&n);
+    
+    setP(0,0,n);
+    printP(n);
+    
+    return 0;
+}
