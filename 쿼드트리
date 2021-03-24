@@ -1,0 +1,50 @@
+/******************************************************************************
+
+                            Online C Compiler.
+                Code, Compile, Run and Debug C program online.
+Write your code in this editor and press "Run" button to compile and execute it.
+
+*******************************************************************************/
+
+#include <stdio.h>
+
+int mat[70][70], N;
+
+void check(int y, int x, int div){
+    
+    if(N/div == 0) return;      //?
+    
+    int n = mat[y][x];
+    int flag = 0;
+    for(int i=y; i<y+(N/div); i++){
+        for(int j=x; j<x+(N/div); j++){
+            if(n != mat[i][j]){
+                flag = 1;   //다르면 flag키고 괄호열기
+                printf("(");
+                check(y,x,div*2);
+                check(y, x + N/(div*2), div*2);
+                check(y + N/(div*2), x, div*2);
+                check(y + N/(div*2), x + N/(div*2), div*2);
+                printf(")");
+                return;
+            }
+        }
+    }
+    
+    if(flag == 0) printf("%d",n);   //괄호 열 일 없었으면 숫자 출력
+    return;
+    
+}
+
+
+
+int main()
+{
+    scanf("%d",&N);
+    for(int i=1; i<=N;i++){//동적할당 어쩌구 할 필요 없이
+        for(int j=1; j<=N; j++)
+            scanf("%1d",&mat[i],[j]);
+    }
+    
+    return 0;
+}
